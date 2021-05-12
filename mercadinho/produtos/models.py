@@ -7,7 +7,7 @@ class Produto(models.Model):
     description = models.CharField(max_length=100, blank=False, default="")
     value = models.FloatField()
     id_category = models.ForeignKey('Categoria', related_name='produtos_idcategory_categorias', on_delete= models.PROTECT)
-    category = models.CharField(max_length=100, blank=True)
+    category = models.JSONField("Categoria")
     owner = models.ForeignKey('auth.User', related_name='produtos_owner_users', on_delete=models.PROTECT)
 
     def save(self, *args, **kwargs): 
@@ -31,5 +31,21 @@ class Categoria(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=100, blank=False, default="")
 
+    class Meta:
+        ordering = ['created']
+
+class Car(models.Model):
+    data = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=100, blank='False', default="teste")
+    
+    class Meta:
+        ordering = ['data']
+
+class IndentifyCar(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    carrinho = models.ForeignKey('Car', related_name="carrinhos_identifycar_cars", on_delete=models.PROTECT)
+    produto = models.ForeignKey('Produto', related_name="produtos_identifycar_produtos", on_delete=models.PROTECT)
+    quantidade = models.PositiveIntegerField(blank=False, default=1)
+    
     class Meta:
         ordering = ['created']

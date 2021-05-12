@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cart',
 ]
 
 MIDDLEWARE = [
@@ -136,3 +137,11 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'EXCEPTION_HANDLER':'produtos.custom_handlers.custom_exception_handler'
 }
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = '587'
+EMAIL_HOST_USER = 'fernandogfleite@gmail.com'
+EMAIL_HOST_PASSWORD = 'nandos2412@3210123#'
+EMAIL_USE_TLS = True
+
+CART_SESSION_ID = 'cart'

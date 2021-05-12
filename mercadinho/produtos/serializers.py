@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from produtos.models import Produto, Categoria
+from produtos.models import Produto, Categoria, Car, IndentifyCar
 from django.contrib.auth.models import User
 
 class CategoriaSerializer(serializers.ModelSerializer):
@@ -25,3 +25,14 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['url', 'id', 'username', 'produtos']
 
+class CarSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Car
+        fields = ['url', 'id', 'status']
+
+class IndentifyCarSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = IndentifyCar
+        fields = ['url', 'carrinho', 'produto', 'quantidade']
