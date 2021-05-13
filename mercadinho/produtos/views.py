@@ -1,5 +1,5 @@
-from produtos.models import Produto, Categoria, IndentifyCar, Car
-from produtos.serializers import ProdutoSerializer, UserSerializer, CategoriaSerializer, CarSerializer, IndentifyCarSerializer
+from produtos.models import Product, Category, IndentifyShoppingCar, ShoppingCar
+from produtos.serializers import ProductSerializer, UserSerializer, CategorySerializer, ShoppingCarSerializer, IndentifyShoppingCarSerializer
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User
 from rest_framework import viewsets
@@ -12,9 +12,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from cart.cart import Cart
 
-class ProdutoViewSet(viewsets.ModelViewSet):
-    queryset = Produto.objects.all()
-    serializer_class = ProdutoSerializer
+class ProductViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
     permission_classes = [IsAuthenticated]
     filter_backends = [filters.SearchFilter, DjangoFilterBackend]
     filterset_fields = ['name','description', 'id_category']
@@ -39,20 +39,17 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
 
-class CategoriaViewSet(viewsets.ModelViewSet):
-    queryset = Categoria.objects.all()
-    serializer_class = CategoriaSerializer
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
     permission_classes = [IsAuthenticated]
 
-class CarViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Car.objects.all()
-    serializer_class = CarSerializer
+class ShoppingCarViewSet(viewsets.ModelViewSet):
+    queryset = ShoppingCar.objects.all()
+    serializer_class = ShoppingCarSerializer
     permission_classes = [IsAuthenticated]
 
-    def perform_create(self, serializer):
-        serializer.save()
-
-class IndentifyCarViewSet(viewsets.ModelViewSet):
-    queryset = IndentifyCar.objects.all()
-    serializer_class = IndentifyCarSerializer
+class IndentifyShoppingCarViewSet(viewsets.ModelViewSet):
+    queryset = IndentifyShoppingCar.objects.all()
+    serializer_class = IndentifyShoppingCarSerializer
     permission_classes = [IsAuthenticated]

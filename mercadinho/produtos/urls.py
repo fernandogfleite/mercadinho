@@ -4,11 +4,11 @@ from produtos import views
 from rest_framework_simplejwt import views as jwt_views
 
 router = DefaultRouter()
-router.register(r'produtos', views.ProdutoViewSet)
+router.register(r'products', views.ProductViewSet)
 router.register(r'users', views.UserViewSet)
-router.register(r'categorias', views.CategoriaViewSet)
-router.register(r'car', views.CarViewSet)
-router.register(r'carindentify', views.IndentifyCarViewSet)
+router.register(r'category', views.CategoryViewSet)
+router.register(r'shoppingcar', views.ShoppingCarViewSet)
+router.register(r'indentifyshoppingcar', views.IndentifyShoppingCarViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

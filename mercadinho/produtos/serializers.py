@@ -1,18 +1,19 @@
 from rest_framework import serializers
-from produtos.models import Produto, Categoria, Car, IndentifyCar
+from produtos.models import Product, Category, ShoppingCar, IndentifyShoppingCar
 from django.contrib.auth.models import User
 
-class CategoriaSerializer(serializers.ModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
     
     class Meta:
-        model = Categoria
+        model = Category
         fields = ['id', 'name']
 
-class ProdutoSerializer(serializers.ModelSerializer):
+class ProductSerializer(serializers.ModelSerializer):
     
+
     class Meta:
-        model = Produto
-        fields = ['url','id', 'name', 'description', 'id_category', 'category','value']
+        model = Product
+        fields = ['url','id', 'name', 'description', 'id_category', 'category','price']
         read_only_fields = ['category']
         extra_kwargs = {
             'id_category' : {'write_only':True}
@@ -20,19 +21,19 @@ class ProdutoSerializer(serializers.ModelSerializer):
       
 
 class UserSerializer(serializers.ModelSerializer):
-    
+    products = serializers.PrimaryKeyRelatedField(many=True, queryset=Product.objects.all())
     class Meta:
         model = User
-        fields = ['url', 'id', 'username', 'produtos']
+        fields = ['url', 'id', 'username', 'products']
 
-class CarSerializer(serializers.ModelSerializer):
-    
+class ShoppingCarSerializer(serializers.ModelSerializer):
+    products = serializers.StringRelatedField(read_only=True, many=True)
     class Meta:
-        model = Car
-        fields = ['url', 'id', 'status']
+        model = ShoppingCar
+        fields = ['url', 'id', 'status', 'products']
 
-class IndentifyCarSerializer(serializers.ModelSerializer):
+class IndentifyShoppingCarSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = IndentifyCar
-        fields = ['url', 'carrinho', 'produto', 'quantidade']
+        model = IndentifyShoppingCar
+        fields = ['url', 'shoppingcar', 'product', 'quantity']
