@@ -10,7 +10,6 @@ from django.template.loader import get_template
 from django.template import Context
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from cart.cart import Cart
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()

@@ -26,14 +26,16 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['url', 'id', 'username', 'products']
 
-class ShoppingCarSerializer(serializers.ModelSerializer):
-    products = serializers.StringRelatedField(read_only=True, many=True)
-    class Meta:
-        model = ShoppingCar
-        fields = ['url', 'id', 'status', 'products']
+
 
 class IndentifyShoppingCarSerializer(serializers.ModelSerializer):
-
+    product = ProductSerializer()
     class Meta:
         model = IndentifyShoppingCar
         fields = ['url', 'shoppingcar', 'product', 'quantity']
+
+class ShoppingCarSerializer(serializers.ModelSerializer):
+    products = IndentifyShoppingCarSerializer(many=True)
+    class Meta:
+        model = ShoppingCar
+        fields = ['url', 'id', 'status', 'products']

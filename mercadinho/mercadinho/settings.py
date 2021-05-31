@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'cart',
 ]
 
 MIDDLEWARE = [
@@ -143,5 +142,3 @@ EMAIL_PORT = '587'
 EMAIL_HOST_USER = 'fernandogfleite@gmail.com'
 EMAIL_HOST_PASSWORD = 'nandos2412@3210123#'
 EMAIL_USE_TLS = True
-
-CART_SESSION_ID = 'cart'

@@ -49,8 +49,6 @@ class IndentifyShoppingCar(models.Model):
     shoppingcar = models.ForeignKey('ShoppingCar', related_name="products", on_delete=models.PROTECT)
     product = models.ForeignKey('Product', related_name="product", on_delete=models.PROTECT)
     quantity = models.PositiveIntegerField(blank=False, default=1)
-    def __str__(self):
-        return "{" + str(self.product) + ", 'quantity': " + str(self.quantity) + "}"
     
     class Meta:
         ordering = ['created']
