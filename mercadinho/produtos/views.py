@@ -20,16 +20,7 @@ class ProductViewSet(viewsets.ModelViewSet):
     search_fields = ['^name','description', 'id_category']
 
     def perform_create(self, serializer):
-        """plaintext = get_template('email.txt')
-        htmly = get_template('email.html')
-        d = {'nome': self.request.data['name'], 'valor': self.request.data['value']}
-        subject, from_email, to = 'Olá', 'fernandogfleite@gmail.com', 'fernandogabriel527@gmail.com'
-        text_content = plaintext.render(d)
-        html_content = htmly.render(d)
-
-        msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-        msg.attach_alternative(html_content, "text/html")
-        msg.send()"""
+        
 
         serializer.save(owner=self.request.user)
 

@@ -23,8 +23,9 @@ class Product(models.Model):
             "name": self.id_category.name
             }
         super(Product, self).save(*args, **kwargs)
+
     def __str__(self):
-        return "'nome': '"+ str(self.name) + "', 'valor': " + str(self.price)
+        return self.name
 
     class Meta:
         ordering = ['created']
@@ -44,12 +45,27 @@ class ShoppingCar(models.Model):
     class Meta:
         ordering = ['data']
 
+    @property
+    def shoppingcar_totalprice(self):
+        total = 0
+        for product in self.products.all():
+            total += product.total_price
+        
+        return total
 class IndentifyShoppingCar(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     shoppingcar = models.ForeignKey('ShoppingCar', related_name="products", on_delete=models.PROTECT)
-    product = models.ForeignKey('Product', related_name="product", on_delete=models.PROTECT)
+    product = models.ForeignKey('Product', related_name="product", on_delete=models.PROTECT)    
     quantity = models.PositiveIntegerField(blank=False, default=1)
-    
+    price = models.FloatField(blank=False, null=True)
+
+    def save(self, *args, **kwargs):
+        self.price = self.product.price
+
+        super(IndentifyShoppingCar,self).save(*args, **kwargs)
     class Meta:
         ordering = ['created']
 
+    @property
+    def total_price(self):
+        return self.quantity * self.price
